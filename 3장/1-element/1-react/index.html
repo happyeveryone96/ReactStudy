@@ -1,0 +1,46 @@
+<html>
+    <body>
+        <div class="todo">
+            <h3>할 일 목록</h3>
+            <ul class="list"></ul>
+            <input class="desc" type="text" />
+            <button onclick="onAdd()">추가</button>
+            <button onclick="onSaveToServer()">서버에 저장</button>
+        </div>
+        <script>
+            let currentId = 1;
+            const todoList = [];
+            function applyTodoData(data) {
+                // 수정, 삭제, 추가
+            }
+            function onAdd() {
+                const todo = {id: currentId++, desc: descEl.value};
+                todoList.push(todo);
+                applyTodoData(todoList);
+            }
+            function makeTodoElement(todo) {
+                const todoEl = document.createElement('li');
+                const spanEl = document.createElement('span');
+                const buttonEl = document.createElement('button');
+                spanEl.innerHTML = todo.desc;
+                buttonEl.innerHTML = '삭제';
+                buttonEl.dataset.id = todo.id;
+                buttonEl.onclick = onDelete;
+                todoEl.appendChild(spanEl);
+                todoEl.appendChild(buttonEl);
+                return todoEl;
+            }
+            function onDelete(e) {
+                const id = Number(e.target.dataset.id);
+                const index = todoList.findIndex(item => item.id === id);
+                if (index >= 0) {
+                    todoList.splice(index, 1);
+                    applyTodoData(todoList);
+                }
+            };
+            function onSaveToServer() {
+                // todoList를 서버로 전송한다.
+            }
+        </script>
+    </body>
+</html>
